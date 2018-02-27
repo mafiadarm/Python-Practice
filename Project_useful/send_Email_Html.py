@@ -39,7 +39,7 @@ cc_mail = ["gaowh@rosun.com.cn"]  # 抄送
 
 from_name = "集团流程IT部"  # 发送者名称[可任意修改]
 subject = "标题"  # 标题[可任意修改]
-body = "<h1>测试邮件</h1><h2 style='color:red'>This is a test</h1> "  # 内容[用网页方式发送]
+body = "<h1>测试邮件</h1><h2 style='color:red'>This is a test</h2> "  # 内容[用网页方式发送]
 
 msg = MIMEMultipart()  # 构造一个msg
 msg["From"] = formatAddr("{} <{}>".format(from_name, from_mail))

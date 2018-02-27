@@ -32,12 +32,17 @@ class PackUp:
             self.pack_exe()
 
     def ico_exists(self):
+        """
+        ensure file and icon
+        :return:
+        """
         if self.icon and not os.path.exists(self.icon):
             return False
         return True
 
     def pack_exe(self):
         """
+
         常用参数说明：
         –icon=图标路径
         -F 打包成一个exe文件
@@ -47,9 +52,17 @@ class PackUp:
 
         For Example: [pyinstaller -F --icon=<ico_path>.ico <file_path>/<filename>.py]
         """
-        if self.ico_exists() and os.path.exists(self.file):
-            command = "pyinstaller -F {} --icon={} {}".format(self.option, self.icon, self.file)
-            os.system(command)
-            print("U can get <file>.exe in {}".format(self.file+" of /dist"))
-            input("Press Enter to Exit!")
+        if not self.ico_exists():
+            return "check icon path"
 
+        if self.icon and os.path.exists(self.file):
+            command = "pyinstaller -F {} --icon={} {}".format(self.option, self.icon, self.file)
+        elif not self.icon and os.path.exists(self.file):
+            command = "pyinstaller -F {} {}".format(self.option, self.file)
+        else: command = "echo check path"
+
+        os.system(command)
+        print("U can get <file>.exe in {}".format(os.getcwd()))
+
+if __name__ == '__main__':
+    PackUp("./zhilianzhaopin_threading.py")
