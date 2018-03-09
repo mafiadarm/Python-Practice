@@ -26,10 +26,11 @@ from multiprocessing.dummy import Pool
 import time
 from requests.exceptions import RequestException
 import xlsxwriter
+import os
 
 __author__ = 'Loffew'
 
-logging.basicConfig(level=logging.DEBUG, format=" %(asctime)s - %(levelname)s - %(message)s")  # [filename]
+# logging.basicConfig(level=logging.DEBUG, format=" %(asctime)s - %(levelname)s - %(message)s")  # [filename]
 #
 #
 # logging.disable(logging.CRITICAL)
@@ -276,22 +277,32 @@ def write_in_excel():
     把整理过的数据放到excel中
     :return: None
     """
+    writeSet = infoList
+    if not os.path.exists("智联招聘"):
+        os.mkdir("智联招聘")
     # 写到excel里面 可以用数据库代替
     file_name = str(int(time.time()))
-    workbook = xlsxwriter.Workbook('智联招聘/%s.xlsx' % file_name)
-    worksheet = workbook.add_worksheet("information")
 
-    title = ("职位链接", "职位名称", "反馈率", "公司链接", "公司名称", "最低薪", "最高薪",
-             "工作区域", "工作地点", "企业性质", "公司规模", "经验", "学历")
-    for title_index, title_value in enumerate(title):
-        worksheet.write(0, title_index, title_value)
+    workbook = xlsxwriter.Workbook('智联招聘/%s%s.xlsx' % (positions, file_name))
 
-    for row, tt in enumerate(infoList, 1):  # 整行的内容
-        for index, value in enumerate(tt):  # 每一单元格的内容
-            worksheet.write(row, index, value)
+    for i in range(len(writeSet) // 30000 + 1):
+        cacheSet = set()
+        worksheet = workbook.add_worksheet(positions + str(i))
+
+        title = ("职位链接", "职位名称", "反馈率", "公司链接", "公司名称", "最低薪", "最高薪",
+                 "工作区域", "工作地点", "企业性质", "公司规模", "经验", "学历")
+        for title_index, title_value in enumerate(title):
+            worksheet.write(0, title_index, title_value)
+
+        for row, tt in enumerate(writeSet, 1):  # 整行的内容
+            cacheSet.add(tt)
+            for index, value in enumerate(tt):  # 每一单元格的内容
+                worksheet.write(row, index, value)
+            if row == 30000: break
+
+        writeSet = writeSet - cacheSet
 
     workbook.close()
-
 
 def main():
     """
@@ -307,9 +318,11 @@ def main():
     pool_info.close()
     pool_info.join()
 
+    print("共计", len(infoList))
     write_in_excel()
 
 if __name__ == '__main__':
+    a1 = time.time()
     pool_info = Pool()   # 加入线程池，让速度飞起来
     pool_para = Pool()
     s = requests.Session()
@@ -322,3 +335,5 @@ if __name__ == '__main__':
     parasList = set()
 
     main()
+    print("花费", time.time()-a1, "秒")
+    input()

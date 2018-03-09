@@ -25,6 +25,16 @@ def pp_dbg(*args):
 
 
 def disposeHead():
+    """
+    Copy text for HEAD COOKIES
+    like {
+	CONNECT www.googleapis.com:443 HTTP/1.1
+    Host	www.googleapis.com:443
+    Proxy-Connection	keep-alive
+    User-Agent	Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.84 Safari/537.36
+    }
+    :return:
+    """
     global result
     text = str(pyperclip.paste())  # 粘贴板赋值
     infoList = text.splitlines()  # 分行变成list

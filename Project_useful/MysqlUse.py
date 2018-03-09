@@ -73,7 +73,7 @@ class MysqlUse:
             EMPLOYEE filed [FIRST_NAME, LAST_NAME, AGE, SEX, INCOME]
         :param table_name: table name
         :param fields: for example: '''
-                key_id        INT         NOT NULL      AUTO_INCREMENT
+                key_id        INT         NOT NULL      AUTO_INCREMENT,
                 FIRST_NAME    CHAR(20)    NOT NULL,
                 LAST_NAME     CHAR(20),
                 AGE           INT,
@@ -122,8 +122,9 @@ class MysqlUse:
         :param values: correspondence fields [string or int or float]
         """
         # SQL insert
-        sql = "INSERT INTO EMPLOYEE({}) VALUES ({})".format(fields, values)
-        self.executeCommit(sql)
+        if len(fields) == len(values):
+            sql = "INSERT INTO EMPLOYEE({}) VALUES ({})".format(fields, values)
+            self.executeCommit(sql)
 
     def deleteData(self, table_name, conditions):
         """

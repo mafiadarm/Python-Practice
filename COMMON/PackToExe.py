@@ -65,4 +65,4 @@ class PackUp:
         print("U can get <file>.exe in {}".format(os.getcwd()))
 
 if __name__ == '__main__':
-    PackUp("./zhilianzhaopin_threading.py")
+    PackUp("C:/Users\lo\Documents\GitHub\Python-Using\copy_data_backup/main.py", option="-D")
