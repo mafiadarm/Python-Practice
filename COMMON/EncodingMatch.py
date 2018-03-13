@@ -152,5 +152,5 @@ def main(code):
 if __name__ == '__main__':
     encode_func_list = [parse_quote, base64_encode_n, base64_encode_u, base64_encode_d, base64_encode_s, md5_make, des_encode, three_des_encode, aes_encode, rsa_encode]
     decode_func_list = [parse_unquote, base64_decode_n, base64_decode_u, base64_decode_d, base64_decode_s, md5_know, aes_decode]
-    ss = 'a514GebAMXjlQLN3dHKRu4CfFaVVfs3LD1voC3Ct%2Bm8tDVQOdBbz1pHKBF6PBGk09Vbmgsv%2Fyv0'
+    ss = '%00'
     main(ss)
