@@ -25,12 +25,15 @@ logging.basicConfig(level=logging.DEBUG, format=" %(asctime)s - %(levelname)s - 
 def pp_dbg(*args):
     return logging.debug(*args)
 
-server = "10.0.10.20"
-user = "sa"
-password = "UntXSO1X653Y"
-database = "STUDY"
+data_info = {
+    "server": "10.0.10.20",
+    "user": "sa",
+    "password": "UntXSO1X653Y",
+    "database": "ROSUNDB",
+}
 
-conn = pymssql.connect(server, user, password, database)
+
+conn = pymssql.connect(**data_info, charset="GBK")
 cursor = conn.cursor()
 # with pymssql.connect(server, user, password, database).cursor() as rr:
 def close():
@@ -39,19 +42,23 @@ def close():
 
 def execution(sql):
     def order(*args, **kwargs):
-        cursor.execute(sql)
-        conn.commit()
-        close()
-        return sql(*args, **kwargs), "are executed"
+        try:
+            cursor.execute(sql(*args, **kwargs))
+            conn.commit()
+        except Exception as ex:
+            conn.rollback()
+            raise ex
+        finally: close()
+        return "Executed"
     return order
 
 # 增（插入）
 @execution
-def insert(fields, values):
+def insert(fields, *args):
     # fields = ("company", "creator", "create_date")
     # values = ("rosun", "ds", "20170101000011111")
-    if len(fields) == len(values):
-        return "INSERT INTO EMPLOYEE({}) VALUES ({})".format(fields, values)
+    if len(fields) == len(args):
+        return "INSERT INTO EMPLOYEE({}) VALUES ({})".format(fields, args)
 # 删除
 @execution
 def delete(table_name, conditions):
@@ -60,14 +67,29 @@ def delete(table_name, conditions):
 @execution
 def update(table_name, content, condition):
     return "UPDATE {} SET {} WHERE {}".format(table_name, content, condition)
+
+
 # 查询
-def query(table_name):
+def query(table_name, conditions=None):
+    sql = 'SELECT * FROM {}'.format(table_name)
+    if conditions:
+        sql = sql + " WHERE {}".format(conditions)
     try:
-        cursor.execute('SELECT * FROM {}'.format(table_name))
-        result = cursor.fetchall()
-        for row in result:
-            print(row)
-    except Exception:
+        cursor.execute(sql)
+        result = cursor.fetchall()  # 使用fetchall()直接获取所有execute结果作为一个list：
+        for i in result:
+            print(i)
+    except Exception as ex:
         print("here is error")
+        pp_dbg(ex)
     finally:
         close()
+
+
+# sql = 'SELECT * FROM COPTG WHERE TG003=20130325'
+# cursor.execute(sql)
+# for i in cursor.fetchall():
+#     print(i)
+# close()
+
+query("COPTG", "TG003=20130325")

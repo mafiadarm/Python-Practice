@@ -162,7 +162,9 @@ class MysqlUse:
         :param field_conditions: example: field_one > num and/or field_two = num
         """
         # SQL query
-        sql = "SELECT * FROM {} {}".format(table_name, field_conditions)  # 查询EMPLOYEE表中salary（工资）字段大于1000的所有数据
+        sql = "SELECT * FROM {} ".format(table_name)
+        if field_conditions:
+            sql = sql + "WHERE {}".format(field_conditions)
         try:
             # execute sql sentence
             self.cur.execute(sql)
@@ -173,7 +175,7 @@ class MysqlUse:
         except Exception:
             print("Error: unable to fetch data")
         finally:
-            pso.connClose()
+            self.connClose()
 
     def performIntroduce(self):
         """
