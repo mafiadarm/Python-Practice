@@ -86,10 +86,10 @@ def query(table_name, conditions=None):
         close()
 
 
-# sql = 'SELECT * FROM COPTG WHERE TG003=20130325'
-# cursor.execute(sql)
-# for i in cursor.fetchall():
-#     print(i)
-# close()
+sql_send = 'SELECT TOP 10 * FROM ROSUNDB.dbo.dl'
+cursor.execute(sql_send)
+for i in cursor.fetchall():
+    print(i)
+close()
 
-query("COPTG", "TG003=20130325")
+# query("COPTG", "TG003=20130325")

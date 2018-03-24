@@ -5,7 +5,7 @@ from django import forms
 
 """
 设计一个产生数据库的类
-在terminal里面创建一个包，用于迁移 python manage.py makemigrations --name initial app
+在terminal里面创建一个包，用于迁移 python manage.py makemigrations --name initial app_name
     python manage.py showmigrations app 显示需要迁移的包有哪些
     python manage.py sqlmigrate app 0001_initial 显示将会对数据库使用什么样的命令
         如果有修改，重新运行python manage.py makemigrations --name initial app对包进行修改

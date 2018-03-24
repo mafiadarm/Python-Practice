@@ -16,7 +16,7 @@ def artistdetails(request, name):
 
 def artistid(request, id):
     artist = Artist.objects.get(pk=id)
-    return render_to_response("artistdetails.html", {"artist": artist})  # artists.html取于templates文件夹下
+    return render_to_response("artistdetails.html", {"artists": artist})  # artists.html取于templates文件夹下
 
 
 # def home(request):
