@@ -14,8 +14,8 @@ def artistdetails(request, name):
     return HttpResponse(output)
 
 
-def artistid(request, id):
-    artist = Artist.objects.get(pk=id)
+def artistid(request, pk_id):
+    artist = Artist.objects.get(pk=pk_id)
     return render_to_response("artistdetails.html", {"artists": artist})  # artists.html取于templates文件夹下
 
 
