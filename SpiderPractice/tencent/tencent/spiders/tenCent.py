@@ -9,11 +9,12 @@ class TencentSpider(scrapy.Spider):
     start_urls = ['https://hr.tencent.com/position.php?&start=0#a']
 
     def parse(self, response):
-        items = TencentItem()
+
         node_list = response.xpath("//*[@class='even']|//*[@class='odd']")
         if not node_list:
             return
 
+        items = TencentItem()
         for node in node_list:
             items["name"] = node.xpath("./td[1]/a/text()").extract_first()  # extract_first 拿一条数据
             items["detailLink"] = node.xpath("./td[1]/a/@href").extract_first()
