@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 import scrapy
 from scrapy.selector import Selector
-from scrapy.contrib.loader import ItemLoader, Identity
 from ..items import MztItem
 
 

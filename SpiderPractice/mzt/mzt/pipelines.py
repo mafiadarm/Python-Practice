@@ -33,5 +33,5 @@ class MztPipeline(object):
                         if not block:
                             break
                         handle.write(block)
-                    print("{} {}下载完毕".format(item['name'], us))
+                    # print("{} {}下载完毕".format(item['name'], us))
 
