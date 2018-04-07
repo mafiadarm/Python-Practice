@@ -28,7 +28,7 @@ def pp_dbg(*args):
 def delete(file):
     os.remove(file)
 
-folder = "E:/photo"
+folder = input("The folder path: ")
 p = Pool()
 
 for folder, _, files in os.walk(folder):
