@@ -8,7 +8,7 @@ class MeizituSpider(scrapy.Spider):
     name = 'meizitu'
     allowed_domains = ['meizitu.com']
     start_urls = [
-        'http://www.meizitu.com/'
+        'http://www.meizitu.com/',
     ]
 
     def parse(self, response):
