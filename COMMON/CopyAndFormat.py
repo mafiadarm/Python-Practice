@@ -15,14 +15,6 @@ import logging
 
 __author__ = 'Loffew'
 
-logging.basicConfig(level=logging.DEBUG, format=" %(asctime)s - %(levelname)s - %(message)s")  # [filename]
-
-
-# logging.disable(logging.CRITICAL)
-
-def pp_dbg(*args):
-    return logging.debug(*args)
-
 
 def disposeHead():
     """
