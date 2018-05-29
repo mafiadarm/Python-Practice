@@ -48,7 +48,7 @@ def parse_unquote(code):
         pass
 
 def base64_encode_n(code):
-    return base64.encodebytes(code.encode())
+    return "这是base64：",base64.encodebytes(code.encode())
 
 def base64_encode_u(code):
     return base64.b64encode(code.encode())
@@ -152,5 +152,5 @@ def main(code):
 if __name__ == '__main__':
     encode_func_list = [parse_quote, base64_encode_n, base64_encode_u, base64_encode_d, base64_encode_s, md5_make, des_encode, three_des_encode, aes_encode, rsa_encode]
     decode_func_list = [parse_unquote, base64_decode_n, base64_decode_u, base64_decode_d, base64_decode_s, md5_know, aes_decode]
-    ss = '%00'
+    ss = 'abcdefg'
     main(ss)
