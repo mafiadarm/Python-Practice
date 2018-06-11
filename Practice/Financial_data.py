@@ -8,7 +8,7 @@
     Python version: 3.6.2  
 - - - - - - - - - - - - - - - 
     Description:
-    page is tushare
+    page is tushare  股票分析
 ==============================
 """
 
