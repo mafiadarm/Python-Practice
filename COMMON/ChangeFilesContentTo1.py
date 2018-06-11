@@ -8,7 +8,7 @@ from tqdm import tqdm
 def changeTo1(file):
     mm = hashlib.md5(file.encode()).hexdigest()
     with open(file, "a") as cc:
-        cc.seek(random.randint(1000, 10000))
+        cc.seek(random.randint(10000, 50000))
         cc.write(mm)
 
     # os.remove(file)  # delete files
