@@ -11,7 +11,6 @@
 ==============================
 """
 import pyperclip
-import logging
 
 __author__ = 'Loffew'
 
@@ -25,29 +24,37 @@ def disposeHead():
     Proxy-Connection	keep-alive
     User-Agent	Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.84 Safari/537.36
     }
-    :return:
     """
-    global result
+
     text = str(pyperclip.paste())  # 粘贴板赋值
     infoList = text.splitlines()  # 分行变成list
 
-    if 'HTTP/1.1' in infoList[0]:  # 去除带HTTP信息的头
-        infoList.pop(0)
-    if infoList[0].startswith('Host'):  # 去除Host信息
-        infoList.pop(0)
-    if infoList[-1].startswith('Cookie'):  # 去除Cookie信息
-        infoList.pop(-1)
+    for info in infoList:
+        info_strip = info.strip()
+
+        # 去除带HTTP信息的头,  # 去除Cookie信息
+        if info_strip.endswith('HTTP/1.1') or info_strip.startswith("Cookie"):
+            infoList.remove(info)
 
     if "\t" in text:  # 处理分隔符
-        result = ["'%s': '%s'," % (i.split("\t")[0], i.split("\t")[1]) for i in infoList]
+        tag = "\t"
     elif ":" in text:
-        result = ["'%s': '%s'," % (i.split(":")[0].replace(" ", ""), i.split(":")[1].replace(" ", "")) for i in
-                  infoList]
+        tag = ":"
     elif "=" in text:
-        result = ["'%s': '%s'," % (i.split("=")[0], i.split("=")[1]) for i in infoList]
+        tag = "="
 
-    pyperclip.copy("\n".join(result))  # 返回粘贴板
+    result = []
+    for i in infoList:
+        key, value = i.split(tag, maxsplit=1)
+        result.append(f"'{key.strip()}': '{value.strip()}',")
+
+    headers = "\n".join(result)
+
+    print(headers)
+    pyperclip.copy(headers)  # 返回粘贴板
 
 
 if __name__ == '__main__':
     disposeHead()
+
+
