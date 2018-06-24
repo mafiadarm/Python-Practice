@@ -116,7 +116,7 @@ class UserAgentMiddleware(object):
         # print(request.headers["User-Agent"])
 
 
-# from selenium import webdriver
+# from selenium_for_firefox import webdriver
 # class SeleniunMiddleware(object):
 #     def process_request(self, request, spider):
 #         self.driver = webdriver.Chrome()

@@ -63,6 +63,11 @@ def base64_encode_s(code):
     return "base64_encode_s", base64.urlsafe_b64encode(code.encode())
 
 
+def base64_decode(code):
+    i = base64.b64decode(code)
+    return "base64_decode", i
+
+
 def base64_decode_n(code):
     i = base64.decodebytes(code).decode()
     return "base64_decode_n", i
@@ -273,7 +278,7 @@ if __name__ == '__main__':
 
     encode_func_list = [parse_quote, base64_encode_n, base64_encode_u, base64_encode_d, base64_encode_s, md5_make,
                         des_encode, three_des_encode, aes_encode, rsa_encode]
-    decode_func_list = [parse_unquote, base64_decode_n, base64_decode_u, base64_decode_d, base64_decode_s, md5_know]
+    decode_func_list = [parse_unquote, base64_decode_n, base64_decode_u, base64_decode_d, base64_decode_s, md5_know, base64_decode, ]
 
     code_change_list = [url_decode, gbk_decode, gb2312_decode, utf8_decode, double_decode, random_decode, ]
 
@@ -282,8 +287,8 @@ if __name__ == '__main__':
     u'\u559c\'
     b'%40%50%60'
     """
-    ss = u"\u559c\u6b22\u4e00\u4e2a\u4eba"
-
+    ss = ""
+    # print(base64_decode(ss))
     main(ss)
     print("-" * 60)
 
