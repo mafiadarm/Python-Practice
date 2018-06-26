@@ -287,7 +287,7 @@ if __name__ == '__main__':
     u'\u559c\'
     b'%40%50%60'
     """
-    ss = ""
+    ss = "\xE8\xA2\x8B"
     # print(base64_decode(ss))
     main(ss)
     print("-" * 60)

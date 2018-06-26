@@ -8,6 +8,9 @@
    Python version: 3.6.2  
 - - - - - - - - - - - - - - - 
    Description:
+   如果在linux下要安装依赖包
+   sudo apt install freetds-dev
+   pip install Cython
 ==============================
 """
 
