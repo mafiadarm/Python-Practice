@@ -35,7 +35,7 @@ from selenium.webdriver.common.action_chains import ActionChains  # 用于拖拽
 from selenium.webdriver.support.wait import WebDriverWait  # 用于自动等待加载完毕
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
-from selenium.webdriver.common.desired_capabilities import DesiredCapabilities  # 用来做配置
+from selenium.webdriver.common.desired_capabilities import DesiredCapabilities  # 用来做PHANTOMJS配置
 
 
 def firefox():
@@ -180,9 +180,39 @@ def phantomjs_web():
     dcap = dict(DesiredCapabilities.PHANTOMJS)
     dcap["phantomjs.page.settings.userAgent"] = "UA"
     dcap["phantomjs.page.settings.loadImages"] = False
-    driver = webdriver.PhantomJS(desired_capabilities=dcap,)
+    driver = webdriver.PhantomJS(desired_capabilities=dcap, )
     driver.get("https://www.baidu.com")
     print(driver.title)
+
+
+def test163():
+    """
+    163邮箱就要用到iframe,切入的时候，如果没有id或者name标签，可以直接使用索引进行切入，特别是在有多少个嵌入式的时候
+    :return:
+    """
+    driver = webdriver.Firefox()
+    driver.get("https://email.163.com/")
+
+    element = (By.ID, 'panel-163')
+    WebDriverWait(driver, 5, 0.5).until(EC.presence_of_all_elements_located(element))
+    print("get id='panel-163'")
+
+    iframe = driver.find_element_by_xpath('//*[@id="panel-163"]/iframe').get_property('id')
+    # driver.switch_to.frame(0)  # 直接用索引也可以切进去
+    driver.switch_to.frame(iframe)
+    print("switch seccess")
+    # print(driver.page_source)
+
+    element = (By.ID, "account-box")
+    WebDriverWait(driver, 5, 0.5).until(EC.presence_of_all_elements_located(element))
+
+    driver.find_element_by_xpath('//*[@id="account-box"]/div/input').send_keys("123")
+    # print(driver.find_element_by_xpath('//*[@class="m-container"]/*/*/input[@name="password"]').get_property("name"))
+    driver.find_element_by_xpath('//*[@class="m-container"]/*/*/input[@name="password"]').send_keys("123456")
+
+    driver.switch_to.default_content()
+    driver.close()
+
 
 if __name__ == '__main__':
     # firefox()
@@ -190,4 +220,6 @@ if __name__ == '__main__':
     # get_cookies()
     # drag()
     # wait_load()
-    phantomjs_web()
+    # phantomjs_web()
+    test163()
+
