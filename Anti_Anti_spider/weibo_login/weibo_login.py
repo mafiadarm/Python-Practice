@@ -134,7 +134,8 @@ class Weibo_login:
 
         print(self.session.get(url="https://weibo.com/u/2696956790/home", verify=False).content.decode())
 
+
 if __name__ == '__main__':
-    login = Weibo_login("15881068335", "password")
+    login = Weibo_login("username", "password")
     login.get_username()
     login.login()
