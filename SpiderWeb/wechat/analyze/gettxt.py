@@ -30,7 +30,7 @@ def pp_dbg(*args):
     return logging.debug(*args)
 
 
-def disponse():
+def disponse(wechat):
     """
     把words.txt里面的数据写到数据库
     :return:
@@ -67,6 +67,6 @@ def disponse():
 
 if __name__ == '__main__':
     we = WeChat()
-    disponse()
+    disponse(we)
     we.finish()
 
