@@ -18,7 +18,7 @@ import requests
 import chardet
 import time
 
-from proxy_pool.config import get_headers
+from config import get_headers
 
 logging.basicConfig(level=logging.DEBUG, format=" %(asctime)s - %(levelname)s - %(message)s")  # [filename]
 logging.disable(logging.CRITICAL)
@@ -30,27 +30,35 @@ class Downloader:
     """
     下载类，对url进行请求，返回文本数据
     """
-
-    def download(self, url):
+    @staticmethod
+    def download(url):
         print("Download:{}".format(url))  # 因为url在变化，所以要用异常处理
         r = requests.get(url, headers=get_headers(), timeout=10)
-        # print(chardet.detect(r.content))  # 识别编码过程{'encoding': 'utf-8', 'confidence': 0.99, 'language': ''}
         r.encoding = chardet.detect(r.content)["encoding"]  # 解对应编码
         if r.status_code == 200 or len(r.content) > 500:  # 如果访问成功
             return r.text  # 返回文本
 
-    def try_download(self, url):
+    def try_download(self, url, flag=0):
+        """
+        尝试连接3次，超过则放弃
+        :param flag:
+        :param url:
+        :return:
+        """
+        if flag == 3:
+            return
         try:
-            if not self.download(url):
+            text = self.download(url)
+            if not text:
                 raise ConnectionError
+            else:
+                return text
         except Exception as e:
-            count = 0
             print("try again: ", e)
-            while count < 3:
-                time.sleep(5)
-                self.download(url)
-                count += 1
+            time.sleep(5)
+            flag += 1
+            self.try_download(url, flag)
 
 
 if __name__ == '__main__':
-    Downloader.download("https://www.baidu.com")
+    Downloader().download("https://www.baidu.com")
