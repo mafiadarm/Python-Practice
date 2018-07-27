@@ -12,9 +12,9 @@
 """
 
 from multiprocessing import Process, Manager
-from proxy_pool.server.flask_server import start_server
-from proxy_pool.spider.Html_Crawl import start_crawl
-from proxy_pool.database.save_data import save_proxies
+from server.flask_server import start_server
+from spider.Html_Crawl import start_crawl
+from database.mongodb.save_data import save_proxies
 
 if __name__ == '__main__':
     queue1 = Manager().Queue()  # 所有的代理队列
