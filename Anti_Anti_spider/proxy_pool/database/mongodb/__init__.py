@@ -2,22 +2,24 @@
 # -*- coding: utf-8 -*-
 """
 ==============================
-  Date:           07_21_2018  19:27
-  File Name:      /Anti_Anti_spider/__init__
-  Creat From:     PyCharm
-  Python version: 3.6.2
+    Date:           07_25_2018  10:33
+    File Name:      /proxy_pool/__init__.py
+    Creat From:     PyCharm
+    Python version: 3.6.2  
 - - - - - - - - - - - - - - - 
-  Description:
+    Description:
 ==============================
 """
+
 import logging
 
-logging.basicConfig(level=logging.DEBUG, format=" %(asctime)s - %(levelname)s - %(message)s")  # [filename]
-# logging.disable(logging.CRITICAL)
-
 __author__ = 'Loffew'
+
+logging.basicConfig(level=logging.DEBUG, format=" %(asctime)s - %(levelname)s - %(message)s")  # [filename]
+
+
+# logging.disable(logging.CRITICAL)
 
 
 def pp_dbg(*args):
     return logging.debug(*args)
-    

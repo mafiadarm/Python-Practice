@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+    <form method="post">
+        {% csrf_token %}  {# 用MD5自动检查内容 #}
+        {{ form.as_p }}  {# 用form.as_p来表示段落 form.as_ul表示无序列表 #}
+        <button type="submit">Save</button>
+    </form>
+</body>
+</html>

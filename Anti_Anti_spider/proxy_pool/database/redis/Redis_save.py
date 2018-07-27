@@ -3,7 +3,7 @@
 """
 ==============================
     Date:           07_25_2018  13:26
-    File Name:      /proxy_pool_demo/Redis_save
+    File Name:      /proxy_pool/Redis_save
     Creat From:     PyCharm
     Python version: 3.6.2  
 - - - - - - - - - - - - - - - 
