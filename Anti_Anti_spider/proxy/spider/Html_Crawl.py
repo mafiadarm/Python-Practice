@@ -20,6 +20,7 @@
 import logging
 
 import time
+from tqdm import tqdm
 from multiprocessing.dummy import Pool
 from multiprocessing import Manager
 from config import parser_list
@@ -51,7 +52,7 @@ class Crawl:
             # 存入数据库预置点
             redis_to.sadd("await", *proxy_list)
 
-    def crawl(self, url=None):
+    def crawl(self, tag_url=None):
         """
         请求 解析页面
         把网站的url都放进列表，然后遍历后放进来[按每页]
@@ -67,8 +68,8 @@ class Crawl:
                 pool.apply_async(self.thread_to_download, args=(url, parser, par_dict, rs))
         pool.close()
         pool.join()
-
-        recycle_check(url, "await")
+        print("爬取完毕，开始对爬取到的ip进行检测")
+        recycle_check(tag_url, "await")
 
     def run(self):
         """
@@ -79,11 +80,17 @@ class Crawl:
             print("启动检测函数，等待处理")
             count = recycle_check()
 
-            if count < 2000:
+            if not count or count < 2000:
                 print(f"当前可用代理数量为{count}, 小于2000, 启动爬虫程序")
                 self.crawl()
 
-            time.sleep(60*60*24)  # 间隔24小时
+            print("距离下次开始时间还有")
+            [time.sleep(1) for _ in tqdm(range(60*60*24))]  # 间隔24小时
+
+
+def start_crwal():
+    c = Crawl()
+    c.run()
 
 
 if __name__ == '__main__':

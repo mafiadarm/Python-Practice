@@ -24,6 +24,7 @@ from selenium.webdriver.support.wait import WebDriverWait
 
 def start():
     bro = webdriver.Ie()
+
     bro.get("http://10.0.10.15:8888")
 
     element = (By.ID, "button")
@@ -54,26 +55,26 @@ def start():
     return bro
 
 
-date_list = [
-    "2018-04-01",
-    "2018-05-01",
-    "2018-06-01"
-]
+if __name__ == '__main__':
 
-page_list = [
-    sangfor.into_page,
-    sangfor1.into_page,
-    sangfor2.into_page,
-    sangfor3.into_page
-]
+    date_list = [
+        "2018-07-01"
+    ]
 
-bro = start()
-try:
-    for page in page_list:
-        for date in date_list:
-            bro = page(date, bro)
-finally:
-    bro.close()
+    page_list = [
+        sangfor.into_page,
+        sangfor1.into_page,
+        sangfor2.into_page,
+        sangfor3.into_page
+    ]
+
+    brow = start()
+    try:
+        for page in page_list:
+            for date in date_list:
+                page(date, brow)
+    finally:
+        brow.close()
 
 
 

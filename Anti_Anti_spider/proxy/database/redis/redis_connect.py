@@ -70,7 +70,7 @@ class Publish(RedisConnect):
     """
 
     def __init__(self, host=None, port=None, db=None, channel_name=None):
-        super(Publish).__init__(host=host, port=port, db=db)
+        super().__init__(host=host, port=port, db=db)
         if not channel_name or not issubclass(channel_name, (str,)):
             channel_name = "monitor"
         self.__conn = self.connect_pool()

@@ -13,11 +13,11 @@
 
 from multiprocessing import Process
 from server.flask_server import start_server
-from spider.Html_Crawl import Crawl
+from spider.Html_Crawl import start_crwal
 
 if __name__ == '__main__':
 
-    proxy_crawl = Process(target=Crawl.run)  # 不断检测已有的
+    proxy_crawl = Process(target=start_crwal)  # 不断检测已有的
     server = Process(target=start_server)  # web服务
 
     proxy_crawl.start()

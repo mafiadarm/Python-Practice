@@ -40,7 +40,7 @@ class Downloader:
 
     def try_download(self, url, flag=0):
         """
-        尝试连接3次，超过则放弃
+        尝试连接3次需要爬取的页面，超过则放弃
         :param flag:
         :param url:
         :return:
@@ -55,7 +55,7 @@ class Downloader:
                 return text
         except Exception as e:
             print("try again: ", e)
-            time.sleep(5)
+            time.sleep(2)
             flag += 1
             self.try_download(url, flag)
 

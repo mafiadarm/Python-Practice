@@ -16,7 +16,7 @@
 """
 import requests
 import time
-from multiprocessing.pool import ThreadPool
+from multiprocessing.dummy import Pool
 import urllib3
 import config
 from database.redis.Redis_save import RedisSet
@@ -29,17 +29,18 @@ def change_score(redis_to, ip_port, zname, speed, flag):
     if flag:
         if zname == "working":
             score = redis_to.zscore(zname, ip_port)
+
             point, _ = str(score).split(".")
-            redis_to.add_to("zadd", zname, -10, ip_port)  # 旧值覆盖
+            redis_to.add_to("zadd", zname, ip_port, -10)  # 旧值覆盖
             # 制造分值格式为 [点数.速度]
-            redis_to.add_to("zadd", zname, float(".".join([point + 1, speed])), ":".join([ip, port]))  # 新值增加
+            redis_to.add_to("zadd", zname, ":".join([ip, port]), ".".join([str(int(point) + 1), speed]))  # 新值增加
         elif zname == "await":
             # 如果是待用值，则加入working
-            redis_to.add_to("zadd", "working", float(".".join([10, speed])), ":".join([ip, port]))
-            redis_to.pool.srem("srem", zname, ip_port)
+            redis_to.pool.zadd("working", ":".join([ip, port]), ".".join(["10", speed]))
+            redis_to.pool.srem(zname, ip_port)
     else:
         if zname == "working":
-            redis_to.supdate("zincrby", zname, -1, ip_port)  # 原有分数-1
+            redis_to.supdate("zincrby", zname, ip_port, -1)  # 原有分数-1
 
 
 def check_proxy(redis_to, ip_port, zname, url=None):
@@ -48,17 +49,17 @@ def check_proxy(redis_to, ip_port, zname, url=None):
 
     ip, port, *_ = ip_port.split(":")
     proxies = {"http": f"http://{ip}:{port}", "https": f"http://{ip}:{port}"}
-
+    print("开始检测", ip_port)
     start_time = time.time()
     try:
         res = requests.get(url=url, headers=config.get_headers(), proxies=proxies, verify=False)
         if res.status_code == 200:
             # speed = round(time.time() - start_time, 3)
-            speed = time.time() - start_time
+            speed = int(time.time() - start_time)
             print(f"响应时间为 {speed}，可用代理{proxies}")
-            change_score(redis_to, ip_port, zname, speed, 1)
+            change_score(redis_to, ip_port, zname, str(speed), 1)
     except Exception:
-            change_score(redis_to, ip_port, zname, 1001, 0)
+            change_score(redis_to, ip_port, zname, "1001", 0)
 
 
 def recycle_check(url=None, zname=None):
@@ -69,7 +70,10 @@ def recycle_check(url=None, zname=None):
     """
     global check_list
     redis_to = RedisSet()
-    pool = ThreadPool()
+    pool = Pool()
+
+    if not redis_to.pool.exists(zname):
+        return
 
     if not zname:
         zname = "working"
@@ -79,13 +83,19 @@ def recycle_check(url=None, zname=None):
 
     for ip_port in check_list:
 
-        print("开始检测", ip_port)
-        pool.apply_async(check_proxy, args=(redis_to, ip_port, zname, url))
+        print(ip_port, "送入线程池")
+        pool.apply_async(check_proxy, args=(redis_to, ip_port.decode(), zname, url))
+
+    pool.close()
+    pool.join()
+    print("检测结束")
 
     if zname == "working":
         redis_to.sdelete("delete", zname, -10, -7)
-        return redis_to.squery("zcard", zname)
+        count = redis_to.squery("zcard", zname)
+        print(f"现在working里面有 {count} 条数据")
+        return count
 
 
 if __name__ == '__main__':
-    pass
+    test = RedisSet()

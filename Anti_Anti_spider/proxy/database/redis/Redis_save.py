@@ -34,7 +34,7 @@ class RedisSet(RedisConnect):
     使用有序集合进行管理，并对分数进行管理
     """
     def __init__(self, host=None, port=None, db=None):
-        super(RedisSet).__init__(host=host, port=port, db=db)
+        super().__init__(host=host, port=port, db=db)
         self.pipe = self.pipeline()
         self.pool = self.connect_pool()
 
@@ -44,7 +44,7 @@ class RedisSet(RedisConnect):
     """
 
     def add_to(self, a_type, key_name, *args, **kwargs):
-        if a_type == "zadd": self.pipe.zadd(key_name, *args, **kwargs)  # 有序
+        if a_type == "zadd": self.pool.zadd(key_name, *args, **kwargs)  # 有序 !!大坑，值和分数要反过来写
 
     def sdelete(self, d_type, key_name, *args):
         if d_type == "delete": self.pool.zremrangebyscore(key_name, *args)  # 根据分数范围删除值
