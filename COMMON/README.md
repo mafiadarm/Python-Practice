@@ -31,3 +31,11 @@
 ##### WitchSystem
 
 ​	判断并返回当前操作系统版本信息及python的版本
+
+##### CaesarEncrypt
+
+​	凯瑟加密方式
+
+##### Daily
+
+​	常用日期方式的整合
