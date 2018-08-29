@@ -4,6 +4,14 @@ import random
 from multiprocessing.dummy import Pool
 from tqdm import tqdm
 
+def createNewFile(file, size):
+    count = 0
+    with open(file, "w") as cc:
+        cc.truncate() 
+        while count < size:
+            cc.write("\\x" + "".join(random.sample(ll, 2)))
+            count = os.path.getsize(file)
+            
 
 def changeTo1(file):
     mm = hashlib.md5(file.encode()).hexdigest()
