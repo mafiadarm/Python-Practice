@@ -293,7 +293,7 @@ if __name__ == '__main__':
     u'\u559c\'
     b'%40%50%60'
     """
-    ss = '%2F%2Fm128.xiami.net%2F1%2F483%2F1483%2F32%5E163%2F3559933_36331%5E_l.mp3%3Fauth_key%3D15311%5E52%5E%5E-%5E-%5E-ba928ca656778342fd3572275bc87736'
+    ss = '679C9A8C2228348D'
     # print(base64_decode(ss))
     main(ss)
     print("-" * 60)
