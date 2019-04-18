@@ -18,9 +18,9 @@ import re
 from collections import Counter
 from multiprocessing.dummy import Pool
 
-from analyze.run_sqlite import WeChat
-from analyze.cloudwords import make_picture
-from analyze.PATH_SETTING import *
+from .run_sqlite import WeChat
+from .cloudwords import make_picture
+from .PATH_SETTING import *
 # from analyze.gettxt import disponse
 
 __author__ = 'Loffew'

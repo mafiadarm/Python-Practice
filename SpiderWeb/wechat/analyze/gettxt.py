@@ -15,8 +15,8 @@ import logging
 import re
 
 import os
-from analyze.run_sqlite import WeChat
-from analyze.PATH_SETTING import *
+from .run_sqlite import  WeChat
+from .PATH_SETTING import *
 
 __author__ = 'Loffew'
 
@@ -48,7 +48,7 @@ def disponse(wechat):
 
     result = regx.findall(bbb)
 
-    for i in result:  # '<Group: 🐷小猪佩奇小卖部🐷>\t<Member: 这个群里，我是最帅的>\t2018-04-25 16:54:30.047209\tText<|[捂脸]|>'
+    for i in result:
         gett = gethan.findall(i)
 
         if gett:

@@ -1,0 +1,23 @@
+# 日志文件
+*.log
+
+# 缓存文件
+*.temp
+
+# json文件
+*.json
+
+# IDE文件夹
+.idea
+
+# python缓存夹
+__pycache__
+
+# 数据库文件
+*.sqlite3
+
+# uwsgi的进程号文件
+*.pid
+
+# 上传文件[测试用的媒体文件]
+uploads

@@ -1,12 +1,12 @@
-# -*- coding: utf-8 -*-
+﻿# -*- coding: utf-8 -*-
 """
 ==============================
    Date:           01_30_2018  12:00
    File Name:      /GitHub/崩崩崩
    Creat From:     PyCharm
-   Python version: 下载蹦蹦蹦的角色图
+   Python version: 
 - - - - - - - - - - - - - - - 
-   Description:
+   Description:  下载蹦蹦蹦的角色图
 ==============================
 """
 import re

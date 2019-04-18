@@ -12,15 +12,13 @@
 """
 import datetime
 
-
 def TODAY(*arg):
     if not arg:
         return datetime.date.today()
     else:
         return datetime.date(*arg)
 
-
-DATE = (2018, 4, 27)  # (2018, 4, 27)
+DATE = (2018, 4, 27)  # (2018, 4, 27) 起始日期
 BACKGROUND = "./img_face.jpg"
 MULTIMEDIA = "wechat_photo/"
 CLOUDWORDS = "./words_png/"

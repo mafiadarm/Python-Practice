@@ -5,8 +5,8 @@ import re
 from wxpy import *
 import datetime
 # from analyze.PATH_SETTING import *
-MULTIMEDIA = "wechat_photo/"
-WORDS = "./words.txt"
+MULTIMEDIA = "wechat_photo/"  # 设置一个放图片，视频的文件夹
+WORDS = "./words.txt"  # 存放信息的文本
 if not os.path.exists(MULTIMEDIA):
     os.mkdir(MULTIMEDIA)
 
@@ -66,4 +66,4 @@ def get_message(message):
     # we.conn.commit()
 
 
-embed(shell="python")
+embed(shell="python")  # 启动

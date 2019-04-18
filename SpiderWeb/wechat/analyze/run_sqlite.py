@@ -13,7 +13,7 @@
 
 import logging
 import sqlite3
-from analyze.PATH_SETTING import DATABASE
+from .PATH_SETTING import DATABASE
 
 __author__ = 'Loffew'
 

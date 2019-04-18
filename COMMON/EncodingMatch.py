@@ -293,7 +293,7 @@ if __name__ == '__main__':
     u'\u559c\'
     b'%40%50%60'
     """
-    ss = '679C9A8C2228348D'
+    ss = 'f=https://api.bbbbbb.me/ckplayer/m3u8.swf&a=http%3A%2F%2F58.222.37.9%2Fc1%2F2018%2F12%2F05_0%2F75FB7CFF458D815E53B972121C9595DA_20181205_1_1_1543_mp4%2FEF39D209EE00EB675A65D5A27CA381CF.m3u8%3Farange%3D0%26pm%3DwV~cARhb9KUM9Z0W8fctJfPkVXA_n69nfGRtEgVZvNeicPmOOLyRWKZ8qWOPTL6jYJpoRPTRwRfTi51nAjs~rf0GhLryboogSdlx83QDLXQfcrWyEkov3GRsd3EQvS7feimYQVZfC3S5zGQpSQuSMzXvwHG9AdRrsnxPvivPiwnKqPsT7UoApTZ3DCbTq0nPAUEGUYty5Qp5biZdmR7phDyghNOsZaGAWqAbPcwhROzzTG1mT7CtTdxaoTCC2uXixOXA7Wl8vlPAztgU4aVdZrbjvWihAsEWsQE2jqzu_zpVaVQhCk0XTztTGe83xlpanHKSxWanclmiMpGJFz~RG6Wnwj_X3EIgzCwNVwsR1PLEfz~quE8plRk7WDEtyuKZgfUy5oPBmsUE8yZknznkcA--%26vcdn%3D0%26scid%3D291%26way%3D1547&c=0&s=4&lv=0&p=1&v=100&b=1&e=0&my_title=null'
     # print(base64_decode(ss))
     main(ss)
     print("-" * 60)

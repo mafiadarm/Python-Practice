@@ -19,7 +19,7 @@ import matplotlib.pyplot as plt
 from wordcloud import WordCloud, ImageColorGenerator
 from PIL import Image
 import numpy
-from analyze.PATH_SETTING import *
+from .PATH_SETTING import *
 
 __author__ = 'Loffew'
 

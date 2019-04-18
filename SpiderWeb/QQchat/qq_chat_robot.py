@@ -18,7 +18,7 @@ import re
 
 
 from qqbot import QQBotSlot as qqbotslot, RunBot
-from run_sqlite import *
+from .run_sqlite import *
 
 __author__ = 'Loffew'
 

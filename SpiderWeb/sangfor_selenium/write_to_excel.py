@@ -12,7 +12,6 @@
 """
 import xlsxwriter
 
-
 def into_excel(name, table):
     # 写入excel
     workbook = xlsxwriter.Workbook(f'{name}.xlsx')
